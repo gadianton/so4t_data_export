@@ -105,12 +105,13 @@ def get_api_questions_answers_comments(v2client, v3client):
             "question.favorite_count",
             "question.last_editor",
             "question.link",
+            "question.notice",
             "question.share_link",
             "question.up_vote_count"
         ]
         filter_string = v2client.create_filter(filter_attributes)
     else: # Stack Overflow Business or Basic
-        filter_string = 'default'
+        filter_string = '!*fH2K9eqy)RZ9s85hV)jaH-KLKYVXhBcAHwuP'
     questions = v2client.get_all_questions(filter_string)
 
     # API v3 has additional question data that API v2 does not have
@@ -153,7 +154,7 @@ def get_api_articles(v2client):
         ]
         filter_string = v2client.create_filter(filter_attributes)
     else: # Stack Overflow Business or Basic
-        filter_string = 'default'
+        filter_string = '!*Mg4Pjg9LXr9d_(v'
 
     articles = v2client.get_all_articles(filter_string=filter_string)
 
@@ -169,7 +170,7 @@ def get_api_tags(v2client, v3client):
         ]
         filter_string = v2client.create_filter(filter_attributes)
     else: # Stack Overflow Business or Basic
-        filter_string = 'default'
+        filter_string = '!nNPvSNMp-i'
     
     tags = v2client.get_all_tags(filter_string=filter_string)
 
