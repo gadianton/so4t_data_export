@@ -51,16 +51,16 @@ def data_collector(args):
     v3client = V3Client(args)
 
     api_data = {}
-    api_data['users'] = get_api_users(v2client)
+    api_data['users'] = get_users(v2client)
     api_data['user_groups'] = v3client.get_all_user_groups()
-    api_data['questions_answers_comments'] = get_api_questions_answers_comments(v2client, v3client)
-    api_data['articles'] = get_api_articles(v2client)
-    api_data['tags'] = get_api_tags(v2client, v3client)
+    api_data['questions_answers_comments'] = get_questions_answers_comments(v2client, v3client)
+    api_data['articles'] = get_articles(v2client)
+    api_data['tags'] = get_tags(v2client, v3client)
 
     return api_data
 
 
-def get_api_users(v2client):
+def get_users(v2client):
 
     if v2client.soe: # Stack Overflow Enterprise requires the generation of a custom filter
         filter_attributes = [
@@ -80,7 +80,7 @@ def get_api_users(v2client):
     return users
 
 
-def get_api_questions_answers_comments(v2client, v3client):
+def get_questions_answers_comments(v2client, v3client):
 
     if v2client.soe: # Stack Overflow Enterprise requires the generation of a custom filter
         filter_attributes = [
@@ -104,14 +104,13 @@ def get_api_questions_answers_comments(v2client, v3client):
             "question.down_vote_count",
             "question.favorite_count",
             "question.last_editor",
-            "question.link",
             "question.notice",
             "question.share_link",
             "question.up_vote_count"
         ]
         filter_string = v2client.create_filter(filter_attributes)
     else: # Stack Overflow Business or Basic
-        filter_string = '!*fH2K9eqy)RZ9s85hV)jaH-KLKYVXhBcAHwuP'
+        filter_string = '!X9DEEiFwy0OeSWoJzb.QMqab2wPSk.X2opZDa2L'
     questions = v2client.get_all_questions(filter_string)
 
     # API v3 has additional question data that API v2 does not have
@@ -139,7 +138,7 @@ def get_api_questions_answers_comments(v2client, v3client):
     return questions
 
 
-def get_api_articles(v2client):
+def get_articles(v2client):
 
     if v2client.soe:
         filter_attributes = [
@@ -156,12 +155,12 @@ def get_api_articles(v2client):
     else: # Stack Overflow Business or Basic
         filter_string = '!*Mg4Pjg9LXr9d_(v'
 
-    articles = v2client.get_all_articles(filter_string=filter_string)
+    articles = v2client.get_all_articles(filter_string)
 
     return articles
 
 
-def get_api_tags(v2client, v3client):
+def get_tags(v2client, v3client):
 
     if v2client.soe: # Stack Overflow Enterprise requires the generation of a custom filter
         filter_attributes = [
